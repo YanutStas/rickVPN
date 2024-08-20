@@ -6,17 +6,18 @@ module.exports.handle = (bot, chatId, userName) => {
     reply_markup: {
       inline_keyboard: [
         [
-          { text: "Месячные тарифы", callback_data: "monthly_tariffs" },
-          { text: "Тарифы на 6 мес.", callback_data: "semi_annual_tariffs" },
+          { text: "Тарифы 1 мес.", callback_data: "monthly_tariffs" },
+          { text: "Тарифы 6 мес.", callback_data: "semi_annual_tariffs" },
         ],
         [{ text: "Оставить комментарий", callback_data: "leave_comment" }],
       ],
     },
   };
 
-  bot.sendMessage(chatId, "Выберите нужный тарифный план", options);
+  bot.sendMessage(chatId, `Выберите нужный тарифный план`, options);
 };
 
+// Обработчик для выбора тарифов
 module.exports.handleTariffSelection = (bot, chatId, tariffType) => {
   let message;
   const options = {
@@ -29,9 +30,9 @@ module.exports.handleTariffSelection = (bot, chatId, tariffType) => {
   if (tariffType === "monthly_tariffs") {
     message = texts.tariffSelectionMessage;
     options.reply_markup.inline_keyboard = [
-      [{ text: "310 руб./мес.", callback_data: "tariff_310" }],
-      [{ text: "350 руб./мес.", callback_data: "tariff_350" }],
-      [{ text: "600 руб./мес.", callback_data: "tariff_600" }],
+      [{ text: "310 рублей/мес.", callback_data: "tariff_310" }],
+      [{ text: "350 рублей/мес.", callback_data: "tariff_350" }],
+      [{ text: "600 рублей/мес.", callback_data: "tariff_600" }],
     ];
   } else if (tariffType === "semi_annual_tariffs") {
     message = texts.semiAnnualTariffMessage;

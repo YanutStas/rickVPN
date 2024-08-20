@@ -5,6 +5,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
 const clientHandler = require("../processes/client/clientHandler");
 const adminHandler = require("../processes/admin/adminHandler");
+const selectTariff = require("../features/client/selectTariff"); // Подключаем selectTariff.js
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
@@ -30,7 +31,14 @@ bot.on("callback_query", (callbackQuery) => {
   logger.info(
     `Пользователь ${username} (${msg.chat.id}) нажал на кнопку: ${action}`
   );
-  // Твой код для обработки нажатия кнопки...
+
+  // Обработка нажатий на кнопки тарифов
+  if (action === "monthly_tariffs") {
+    selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
+  } else if (action === "semi_annual_tariffs") {
+    selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
+  }
+  // Твой код для обработки других нажатий...
 });
 
 clientHandler.init(bot);
