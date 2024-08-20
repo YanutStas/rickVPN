@@ -1,4 +1,5 @@
 require("dotenv").config();
+console.log("Telegram Token:", process.env.TELEGRAM_TOKEN);
 
 const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
