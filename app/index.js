@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
 const clientHandler = require("../processes/client/clientHandler");
 const adminHandler = require("../processes/admin/adminHandler");
 
-const token = "7467111905:AAFykJCshfozhNjIoKyFoiZR5DPhR1jI2Bc";
+const token = process.env.TELEGRAM_TOKEN; // Используем переменную из .env
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on("polling_error", (error) => {
