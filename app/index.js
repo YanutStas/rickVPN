@@ -20,10 +20,21 @@ bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   const username = msg.from.username;
   logger.info(`Пользователь ${username} (${chatId}) выполнил команду /start`);
-  bot.sendMessage(chatId, "Добро пожаловать в RickVPN!");
+
+  // Отправляем приветственное сообщение с кнопками
+  bot.sendMessage(chatId, "Добро пожаловать в RickVPN!", {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: "Купить VPN", callback_data: "buy_vpn" }],
+        [{ text: "Как подключиться", callback_data: "how_to_connect" }],
+        [{ text: "Оплата", callback_data: "payment" }],
+        [{ text: "Прайс", callback_data: "price" }],
+      ],
+    },
+  });
 });
 
-// Логируем нажатие на любую кнопку
+// Логируем нажатие на любую кнопку и обрабатываем нажатия
 bot.on("callback_query", (callbackQuery) => {
   const action = callbackQuery.data;
   const msg = callbackQuery.message;
@@ -33,12 +44,31 @@ bot.on("callback_query", (callbackQuery) => {
   );
 
   // Обработка нажатий на кнопки тарифов
-  if (action === "monthly_tariffs") {
+  if (action === "buy_vpn") {
+    bot.sendMessage(msg.chat.id, "Выбери нужный тарифный план:", {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: "Тарифы на 1 месяц", callback_data: "monthly_tariffs" }],
+          [
+            {
+              text: "Тарифы на 6 месяцев",
+              callback_data: "semi_annual_tariffs",
+            },
+          ],
+          [{ text: "Оставить комментарий", callback_data: "leave_comment" }],
+        ],
+      },
+    });
+  } else if (action === "monthly_tariffs") {
     selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
   } else if (action === "semi_annual_tariffs") {
     selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
+  } else if (action === "payment") {
+    bot.sendMessage(msg.chat.id, texts.paymentMessage);
+  } else if (action === "price") {
+    bot.sendMessage(msg.chat.id, texts.priceMessage);
   }
-  // Твой код для обработки других нажатий...
+  // Добавляем обработку других нажатий...
 });
 
 clientHandler.init(bot);
