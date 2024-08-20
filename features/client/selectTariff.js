@@ -6,18 +6,17 @@ module.exports.handle = (bot, chatId, userName) => {
     reply_markup: {
       inline_keyboard: [
         [
-          { text: "Тарифы на месяц", callback_data: "monthly_tariffs" },
-          { text: "Тарифы на 6 месяцев", callback_data: "semi_annual_tariffs" },
+          { text: "Месячные тарифы", callback_data: "monthly_tariffs" },
+          { text: "Тарифы на 6 мес.", callback_data: "semi_annual_tariffs" },
         ],
         [{ text: "Оставить комментарий", callback_data: "leave_comment" }],
       ],
     },
   };
 
-  bot.sendMessage(chatId, `Выберите нужный тарифный план`, options);
+  bot.sendMessage(chatId, "Выберите нужный тарифный план", options);
 };
 
-// Обработчик для выбора тарифов
 module.exports.handleTariffSelection = (bot, chatId, tariffType) => {
   let message;
   const options = {
@@ -30,16 +29,16 @@ module.exports.handleTariffSelection = (bot, chatId, tariffType) => {
   if (tariffType === "monthly_tariffs") {
     message = texts.tariffSelectionMessage;
     options.reply_markup.inline_keyboard = [
-      [{ text: "310 рублей/месяц", callback_data: "tariff_310" }],
-      [{ text: "350 рублей/месяц", callback_data: "tariff_350" }],
-      [{ text: "600 рублей/месяц", callback_data: "tariff_600" }],
+      [{ text: "310 руб./мес.", callback_data: "tariff_310" }],
+      [{ text: "350 руб./мес.", callback_data: "tariff_350" }],
+      [{ text: "600 руб./мес.", callback_data: "tariff_600" }],
     ];
   } else if (tariffType === "semi_annual_tariffs") {
     message = texts.semiAnnualTariffMessage;
     options.reply_markup.inline_keyboard = [
-      [{ text: "1550 рублей/6 месяцев", callback_data: "tariff_1550" }],
-      [{ text: "1750 рублей/6 месяцев", callback_data: "tariff_1750" }],
-      [{ text: "3000 рублей/6 месяцев", callback_data: "tariff_3000" }],
+      [{ text: "1550 руб./6 мес.", callback_data: "tariff_1550" }],
+      [{ text: "1750 руб./6 мес.", callback_data: "tariff_1750" }],
+      [{ text: "3000 руб./6 мес.", callback_data: "tariff_3000" }],
     ];
   }
 
