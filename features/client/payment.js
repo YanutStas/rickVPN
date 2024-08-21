@@ -8,7 +8,7 @@ module.exports.handle = (bot, chatId) => {
   });
 
   bot.sendPhoto(chatId, utils.getQrPath(), {
-    caption: "*Способ 3: Сканируй этот QR-код и плати!*",
+    // caption: "*Способ 3: Сканируй этот QR-код и плати!*",
     parse_mode: "Markdown",
   });
 };
