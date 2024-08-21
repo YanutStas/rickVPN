@@ -24,7 +24,7 @@ bot.onText(/\/start/, (msg) => {
 
   // Отправляем приветственное сообщение с кнопками
   bot.sendMessage(chatId, texts.startMessage(firstName), {
-    parse_mode: "MarkdownV2", // Используем MarkdownV2
+    parse_mode: "Markdown", // Убедимся, что указан режим Markdown
     reply_markup: {
       inline_keyboard: [
         [{ text: "Купить VPN", callback_data: "buy_vpn" }],
