@@ -6,6 +6,7 @@ const fs = require("fs");
 const clientHandler = require("../processes/client/clientHandler");
 const adminHandler = require("../processes/admin/adminHandler");
 const selectTariff = require("../features/client/selectTariff"); // Подключаем selectTariff.js
+const texts = require("../shared/texts");
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
@@ -22,7 +23,7 @@ bot.onText(/\/start/, (msg) => {
   logger.info(`Пользователь ${username} (${chatId}) выполнил команду /start`);
 
   // Отправляем приветственное сообщение с кнопками
-  bot.sendMessage(chatId, "Добро пожаловать в RickVPN!", {
+  bot.sendMessage(chatId, texts.startMessage(username), {
     reply_markup: {
       inline_keyboard: [
         [{ text: "Купить VPN", callback_data: "buy_vpn" }],
