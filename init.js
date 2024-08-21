@@ -1,6 +1,6 @@
-const logger = require("./logger");
-const clientHandler = require("../processes/client/clientHandler");
-const adminHandler = require("../processes/admin/adminHandler");
+const logger = require("./app/logger");
+const clientHandler = require("./processes/client/clientHandler");
+const adminHandler = require("./processes/admin/adminHandler");
 const commandHandler = require("./handlers/commandHandler");
 const callbackHandler = require("./handlers/callbackHandler");
 
