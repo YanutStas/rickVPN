@@ -19,11 +19,11 @@ bot.on("polling_error", (error) => {
 // Логируем нажатие на /start команду
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  const username = msg.from.username;
-  logger.info(`Пользователь ${username} (${chatId}) выполнил команду /start`);
+  const firstName = msg.from.first_name || "друг";
+  logger.info(`Пользователь ${firstName} (${chatId}) выполнил команду /start`);
 
   // Отправляем приветственное сообщение с кнопками
-  bot.sendMessage(chatId, texts.startMessage(username), {
+  bot.sendMessage(chatId, texts.startMessage(firstName), {
     reply_markup: {
       inline_keyboard: [
         [{ text: "Купить VPN", callback_data: "buy_vpn" }],
