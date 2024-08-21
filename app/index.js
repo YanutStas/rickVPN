@@ -65,8 +65,8 @@ bot.on("callback_query", (callbackQuery) => {
     selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
   } else if (action === "semi_annual_tariffs") {
     selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
-  } else if (action === "payment") {
-    bot.sendMessage(msg.chat.id, texts.paymentMessage);
+  // } else if (action === "payment") {
+  //   bot.sendMessage(msg.chat.id, texts.paymentMessage);
   // } else if (action === "price") {
   //   bot.sendMessage(msg.chat.id, texts.priceMessage);
   }
