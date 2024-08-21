@@ -6,7 +6,7 @@ const callbackHandler = require("./handlers/callbackHandler");
 
 function initBot(bot) {
   bot.on("polling_error", (error) => {
-    console.log("Ошибка опроса:", error);
+    console.log("Ошибка опросам:", error);
     logger.error(`Ошибка опроса: ${error.message}`);
   });
 
