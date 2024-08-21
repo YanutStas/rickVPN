@@ -1,14 +1,3 @@
-// const { initBot } = require("./init");
-// require("dotenv").config();
-// const TelegramBot = require("node-telegram-bot-api");
-
-// const token = process.env.TELEGRAM_TOKEN;
-// const bot = new TelegramBot(token, { polling: true });
-
-// initBot(bot);
-
-// console.log("Бот успешно запущен и ожидает команд.");
-
 const logger = require("./logger"); // Путь до логгера
 
 require("dotenv").config();
@@ -78,8 +67,8 @@ bot.on("callback_query", (callbackQuery) => {
     selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
   } else if (action === "payment") {
     bot.sendMessage(msg.chat.id, texts.paymentMessage);
-  } else if (action === "price") {
-    bot.sendMessage(msg.chat.id, texts.priceMessage);
+  // } else if (action === "price") {
+  //   bot.sendMessage(msg.chat.id, texts.priceMessage);
   }
   // Добавляем обработку других нажатий...
 });
