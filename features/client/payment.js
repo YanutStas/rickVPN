@@ -2,10 +2,11 @@ const texts = require("../../shared/texts");
 const utils = require("../../shared/utils");
 
 module.exports.handle = (bot, chatId) => {
-  // Отправляем сообщение с инструкциями по оплате
-  bot.sendMessage(chatId, texts.paymentMessage, { parse_mode: "Markdown" });
+  bot.sendMessage(chatId, texts.paymentMessage, {
+    parse_mode: "Markdown",
+    disable_web_page_preview: true, // Отключаем предпросмотр ссылок
+  });
 
-  // Отправляем QR-код для оплаты
   bot.sendPhoto(chatId, utils.getQrPath(), {
     caption: "*Способ 3: Сканируй этот QR-код и плати!*",
     parse_mode: "Markdown",
