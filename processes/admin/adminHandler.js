@@ -1,8 +1,7 @@
-const texts = require("../../shared/texts");
 const manageRequests = require("../../features/admin/manageRequests");
 
 module.exports.init = (bot) => {
-  let selectedTariff = "";
+  let selectedTariff = ""; // Добавляем переменную для хранения тарифа
 
   bot.on("callback_query", (callbackQuery) => {
     const action = callbackQuery.data;
@@ -12,7 +11,9 @@ module.exports.init = (bot) => {
   });
 
   bot.on("message", (msg) => {
-    manageRequests.handle(bot, msg, selectedTariff); // Передаем выбранный тариф в manageRequests
+    if (msg.photo || msg.document) {
+      manageRequests.handle(bot, msg, selectedTariff); // Передаем выбранный тариф в manageRequests
+    }
   });
 };
 
