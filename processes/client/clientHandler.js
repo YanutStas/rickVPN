@@ -12,7 +12,7 @@ module.exports.init = (bot) => {
 
     switch (callbackQuery.data) {
       case "buy_vpn":
-        bot.sendMessage(chatId, "Выберите действие:", {
+        bot.sendMessage(chatId, "Молодец, а теперь почитай сначала инструкцию, а потом выбери тариф, если всё понятно", {
           reply_markup: {
             inline_keyboard: [
               [{ text: "Инструкция", callback_data: "instruction" }],
