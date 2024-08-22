@@ -51,8 +51,10 @@ module.exports.handle = (bot, chatId, action) => {
     case "tariff_600_monthly":
       bot.sendMessage(
         chatId,
-        `Вы выбрали тариф на 1 месяц: *${texts.tariffDescriptions[action]}*`,
-        { parse_mode: "Markdown" }
+        `Вы выбрали тариф на 1 месяц: *${texts.getTariffDescription(action)}*`,
+        {
+          parse_mode: "Markdown",
+        }
       );
       payment.handle(bot, chatId);
       break;
@@ -63,8 +65,12 @@ module.exports.handle = (bot, chatId, action) => {
     case "tariff_3000_semiannual":
       bot.sendMessage(
         chatId,
-        `Вы выбрали тариф на 6 месяцев: *${texts.tariffDescriptions[action]}*`,
-        { parse_mode: "Markdown" }
+        `Вы выбрали тариф на 6 месяцев: *${texts.getTariffDescription(
+          action
+        )}*`,
+        {
+          parse_mode: "Markdown",
+        }
       );
       payment.handle(bot, chatId);
       break;
