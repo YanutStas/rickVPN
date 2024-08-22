@@ -1,11 +1,11 @@
-const logger = require("./logger"); // Путь до логгера
+const logger = require("./logger");
 
 require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
 const clientHandler = require("../processes/client/clientHandler");
 const adminHandler = require("../processes/admin/adminHandler");
-const selectTariff = require("../features/client/selectTariff"); // Подключаем selectTariff.js
+const selectTariff = require("../features/client/selectTariff"); 
 const texts = require("../shared/texts");
 
 const token = process.env.TELEGRAM_TOKEN;
@@ -24,12 +24,10 @@ bot.onText(/\/start/, (msg) => {
 
   // Отправляем приветственное сообщение с кнопками
   bot.sendMessage(chatId, texts.startMessage(firstName), {
-    parse_mode: "Markdown", // Убедимся, что указан режим Markdown
+    parse_mode: "Markdown",
     reply_markup: {
       inline_keyboard: [
         [{ text: "Купить VPN", callback_data: "buy_vpn" }],
-        // [{ text: "Как подключиться", callback_data: "how_to_connect" }],
-        // [{ text: "Оплата", callback_data: "payment" }],
         [{ text: "Прайс", callback_data: "price" }],
       ],
     },
@@ -44,30 +42,6 @@ bot.on("callback_query", (callbackQuery) => {
   logger.info(
     `Пользователь ${username} (${msg.chat.id}) нажал на кнопку: ${action}`
   );
-
-  // Обработка нажатий на кнопки тарифов
-  // if (action === "buy_vpn") {
-  //   bot.sendMessage(msg.chat.id, "Выбери нужный тарифный план:", {
-  //     reply_markup: {
-  //       inline_keyboard: [
-  //         [{ text: "Тарифы на 1 месяц", callback_data: "monthly_tariffs" }],
-  //         [
-  //           {
-  //             text: "Тарифы на 6 месяцев",
-  //             callback_data: "semi_annual_tariffs",
-  //           },
-  //         ],
-  //         [{ text: "Оставить комментарий", callback_data: "leave_comment" }],
-  //       ],
-  //     },
-  //   });
-  // }
-  // if (action === "monthly_tariffs") {
-  //   selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
-  // } else if (action === "semi_annual_tariffs") {
-  //   selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
-  // }
-  // Добавляем обработку других нажатий...
 });
 
 clientHandler.init(bot);

@@ -2,6 +2,7 @@ const texts = require("../../shared/texts");
 const selectTariff = require("../../features/client/selectTariff");
 const payment = require("../../features/client/payment");
 const startPage = require("../../pages/client/start");
+const logger = require("../../app/logger"); // Подключаем логгер
 
 module.exports.init = (bot) => {
   bot.onText(/\/start/, (msg) => startPage.render(bot, msg));
@@ -9,17 +10,25 @@ module.exports.init = (bot) => {
   bot.on("callback_query", (callbackQuery) => {
     const chatId = callbackQuery.message.chat.id;
     const userName = callbackQuery.from.first_name || "друг";
+    const action = callbackQuery.data;
 
-    switch (callbackQuery.data) {
+    // Логируем нажатие на кнопку
+    logger.info(`Пользователь ${userName} (${chatId}) нажал на кнопку: ${action}`);
+
+    switch (action) {
       case "buy_vpn":
-        bot.sendMessage(chatId, "Молодец, а теперь почитай сначала инструкцию, а потом выбери тариф, если всё понятно", {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "Инструкция", callback_data: "instruction" }],
-              [{ text: "Выбор тарифа", callback_data: "choose_tariff" }],
-            ],
-          },
-        });
+        bot.sendMessage(
+          chatId,
+          "Молодец, а теперь почитай сначала инструкцию, а потом выбери тариф, если всё понятно",
+          {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: "Инструкция", callback_data: "instruction" }],
+                [{ text: "Выбор тарифа", callback_data: "choose_tariff" }],
+              ],
+            },
+          }
+        );
         break;
 
       case "instruction":
@@ -29,19 +38,23 @@ module.exports.init = (bot) => {
         break;
 
       case "choose_tariff":
-        bot.sendMessage(chatId, "Жмякай на кнопки и не тормози(а то вдруг всё закончится?):", {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "Тариф на 1 месяц", callback_data: "monthly_tariff" }],
-              [
-                {
-                  text: "Тариф на 6 месяцев",
-                  callback_data: "semiannual_tariff",
-                },
+        bot.sendMessage(
+          chatId,
+          "Жмякай на кнопки и не тормози(а то вдруг всё закончится?):",
+          {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: "Тариф на 1 месяц", callback_data: "monthly_tariff" }],
+                [
+                  {
+                    text: "Тариф на 6 месяцев",
+                    callback_data: "semiannual_tariff",
+                  },
+                ],
               ],
-            ],
-          },
-        });
+            },
+          }
+        );
         break;
 
       case "monthly_tariff":
