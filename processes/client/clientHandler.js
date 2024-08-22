@@ -83,6 +83,20 @@ module.exports.init = (bot) => {
         break;
     }
   });
+
+  bot.on("message", (msg) => {
+    const chatId = msg.chat.id;
+
+    // Проверяем, отправил ли пользователь чек
+    if (msg.photo || msg.document) {
+      bot.sendMessage(chatId, texts.userCompletionMessage, {
+        parse_mode: "Markdown",
+      });
+      logger.info(
+        `Пользователь ${msg.from.first_name} (${chatId}) отправил чек.`
+      );
+    }
+  });
 };
 
 // const texts = require("../../shared/texts");
