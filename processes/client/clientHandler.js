@@ -29,7 +29,7 @@ module.exports.init = (bot) => {
         break;
 
       case "choose_tariff":
-        bot.sendMessage(chatId, "Выберите тарифный план:", {
+        bot.sendMessage(chatId, "Жмякай на кнопки и не тормози(а то вдруг всё закончится?):", {
           reply_markup: {
             inline_keyboard: [
               [{ text: "Тариф на 1 месяц", callback_data: "monthly_tariff" }],

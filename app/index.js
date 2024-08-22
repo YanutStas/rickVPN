@@ -62,11 +62,11 @@ bot.on("callback_query", (callbackQuery) => {
   //     },
   //   });
   // }
-  if (action === "monthly_tariffs") {
-    selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
-  } else if (action === "semi_annual_tariffs") {
-    selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
-  }
+  // if (action === "monthly_tariffs") {
+  //   selectTariff.handleTariffSelection(bot, msg.chat.id, "monthly_tariffs");
+  // } else if (action === "semi_annual_tariffs") {
+  //   selectTariff.handleTariffSelection(bot, msg.chat.id, "semi_annual_tariffs");
+  // }
   // Добавляем обработку других нажатий...
 });
 
