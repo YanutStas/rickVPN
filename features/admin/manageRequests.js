@@ -14,19 +14,20 @@ module.exports.handle = (bot, msg, selectedTariff) => {
 
   // Отправляем уведомление админу с информацией о заказе только при получении чека
   if (msg.photo || msg.document) {
+    // Отправляем информацию о заказе админу
     const adminNotification = texts.adminNotificationMessage(
       userName,
       selectedTariff,
       paymentInfo,
       comment
     );
-    bot.sendMessage(adminChatId, adminNotification, { parse_mode: "Markdown" });
-
-    // Пересылаем чек или документ администратору
-    bot.forwardMessage(adminChatId, chatId, msg.message_id);
+    bot
+      .sendMessage(adminChatId, adminNotification, { parse_mode: "Markdown" })
+      .then(() => {
+        // Пересылаем чек или документ администратору после отправки текста
+        bot.forwardMessage(adminChatId, chatId, msg.message_id);
+      });
   }
-
-  // Дополнительная логика обработки чека и комментариев, если нужно
 };
 
 // require("dotenv").config(); // Подключаем dotenv
