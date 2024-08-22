@@ -28,8 +28,8 @@ bot.onText(/\/start/, (msg) => {
     reply_markup: {
       inline_keyboard: [
         [{ text: "Купить VPN", callback_data: "buy_vpn" }],
-        [{ text: "Как подключиться", callback_data: "how_to_connect" }],
-        [{ text: "Оплата", callback_data: "payment" }],
+        // [{ text: "Как подключиться", callback_data: "how_to_connect" }],
+        // [{ text: "Оплата", callback_data: "payment" }],
         [{ text: "Прайс", callback_data: "price" }],
       ],
     },
