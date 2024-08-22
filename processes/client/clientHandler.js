@@ -67,6 +67,10 @@ module.exports.init = (bot) => {
       case "tariff_1550_semiannual":
       case "tariff_1750_semiannual":
       case "tariff_3000_semiannual":
+        // Сохраняем выбранный тариф в сессии пользователя
+        bot.session[chatId] = {
+          tariff: action,
+        };
         selectTariff.handle(bot, chatId, action);
         break;
 
@@ -83,21 +87,9 @@ module.exports.init = (bot) => {
         break;
     }
   });
-
-  bot.on("message", (msg) => {
-    const chatId = msg.chat.id;
-
-    // Проверяем, отправил ли пользователь чек
-    if (msg.photo || msg.document) {
-      bot.sendMessage(chatId, texts.userCompletionMessage, {
-        parse_mode: "Markdown",
-      });
-      logger.info(
-        `Пользователь ${msg.from.first_name} (${chatId}) отправил чек.`
-      );
-    }
-  });
 };
+
+
 
 // const texts = require("../../shared/texts");
 // const selectTariff = require("../../features/client/selectTariff");
@@ -182,6 +174,20 @@ module.exports.init = (bot) => {
 //           "Извините, произошла ошибка. Попробуйте снова."
 //         );
 //         break;
+//     }
+//   });
+
+//   bot.on("message", (msg) => {
+//     const chatId = msg.chat.id;
+
+//     // Проверяем, отправил ли пользователь чек
+//     if (msg.photo || msg.document) {
+//       bot.sendMessage(chatId, texts.userCompletionMessage, {
+//         parse_mode: "Markdown",
+//       });
+//       logger.info(
+//         `Пользователь ${msg.from.first_name} (${chatId}) отправил чек.`
+//       );
 //     }
 //   });
 // };
