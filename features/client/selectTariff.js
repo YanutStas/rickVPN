@@ -64,13 +64,14 @@ module.exports.handle = (bot, chatId, action) => {
       break;
 
     default:
-      bot.sendMessage(chatId, "Извините, произошла ошибка. Попробуйте снова.");
-      logger.error(`Неизвестное действие: ${action}`);
+      logger.error(`Неизвестное действие в selectTariff: ${action}`);
+      bot.sendMessage(
+        chatId,
+        "Извините, произошла ошибка при выборе тарифа. Попробуйте снова."
+      );
       break;
   }
 };
-
-
 
 // const texts = require("../../shared/texts");
 
