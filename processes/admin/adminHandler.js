@@ -2,7 +2,7 @@ const texts = require("../../shared/texts");
 const manageRequests = require("../../features/admin/manageRequests");
 
 module.exports.init = (bot) => {
-  let selectedTariff = ""; // Добавляем переменную для хранения тарифа
+  let selectedTariff = "";
 
   bot.on("callback_query", (callbackQuery) => {
     const action = callbackQuery.data;
@@ -20,12 +20,16 @@ module.exports.init = (bot) => {
 // const manageRequests = require("../../features/admin/manageRequests");
 
 // module.exports.init = (bot) => {
-//   bot.on("message", (msg) => manageRequests.handle(bot, msg));
-// };
+//   let selectedTariff = ""; // Добавляем переменную для хранения тарифа
 
-// const texts = require("../../shared/texts");
-// const manageRequests = require("../../features/admin/manageRequests");
+//   bot.on("callback_query", (callbackQuery) => {
+//     const action = callbackQuery.data;
+//     if (action.startsWith("tariff_")) {
+//       selectedTariff = action.replace("tariff_", ""); // Сохраняем выбранный тариф
+//     }
+//   });
 
-// module.exports.init = (bot) => {
-//   bot.on("message", (msg) => manageRequests.handle(bot, msg));
+//   bot.on("message", (msg) => {
+//     manageRequests.handle(bot, msg, selectedTariff); // Передаем выбранный тариф в manageRequests
+//   });
 // };
