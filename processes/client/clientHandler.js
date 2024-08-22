@@ -87,9 +87,8 @@ module.exports.init = (bot) => {
 
 // const texts = require("../../shared/texts");
 // const selectTariff = require("../../features/client/selectTariff");
-// const payment = require("../../features/client/payment");
 // const startPage = require("../../pages/client/start");
-// const logger = require("../../app/logger"); // Подключаем логгер
+// const logger = require("../../app/logger");
 
 // module.exports.init = (bot) => {
 //   bot.onText(/\/start/, (msg) => startPage.render(bot, msg));
@@ -100,7 +99,9 @@ module.exports.init = (bot) => {
 //     const action = callbackQuery.data;
 
 //     // Логируем нажатие на кнопку
-//     logger.info(`Пользователь ${userName} (${chatId}) нажал на кнопку: ${action}`);
+//     logger.info(
+//       `Пользователь ${userName} (${chatId}) нажал на кнопку: ${action}`
+//     );
 
 //     switch (action) {
 //       case "buy_vpn":
@@ -127,7 +128,7 @@ module.exports.init = (bot) => {
 //       case "choose_tariff":
 //         bot.sendMessage(
 //           chatId,
-//           "Жмякай на кнопки и не тормози(а то вдруг всё закончится?):",
+//           "Жмякай на кнопки и не тормози (а то вдруг всё закончится?):",
 //           {
 //             reply_markup: {
 //               inline_keyboard: [
@@ -144,61 +145,16 @@ module.exports.init = (bot) => {
 //         );
 //         break;
 
+//       // Передаем обработку тарифов в selectTariff.js
 //       case "monthly_tariff":
-//         bot.sendMessage(chatId, "Выберите тариф на 1 месяц:", {
-//           reply_markup: {
-//             inline_keyboard: [
-//               [{ text: "310 рублей/мес", callback_data: "tariff_310_monthly" }],
-//               [{ text: "350 рублей/мес", callback_data: "tariff_350_monthly" }],
-//               [{ text: "600 рублей/мес", callback_data: "tariff_600_monthly" }],
-//             ],
-//           },
-//         });
-//         break;
-
 //       case "semiannual_tariff":
-//         bot.sendMessage(chatId, "Выберите тариф на 6 месяцев:", {
-//           reply_markup: {
-//             inline_keyboard: [
-//               [
-//                 {
-//                   text: "1550 руб./6 мес.",
-//                   callback_data: "tariff_1550_semiannual",
-//                 },
-//               ],
-//               [
-//                 {
-//                   text: "1750 руб./6 мес.",
-//                   callback_data: "tariff_1750_semiannual",
-//                 },
-//               ],
-//               [
-//                 {
-//                   text: "3000 руб./6 мес.",
-//                   callback_data: "tariff_3000_semiannual",
-//                 },
-//               ],
-//             ],
-//           },
-//         });
-//         break;
-
-//       // Обработка тарифов на 1 месяц
 //       case "tariff_310_monthly":
 //       case "tariff_350_monthly":
 //       case "tariff_600_monthly":
-//         bot.sendMessage(chatId, texts.paymentMessage, {
-//           parse_mode: "Markdown",
-//         });
-//         break;
-
-//       // Обработка тарифов на 6 месяцев
 //       case "tariff_1550_semiannual":
 //       case "tariff_1750_semiannual":
 //       case "tariff_3000_semiannual":
-//         bot.sendMessage(chatId, texts.paymentMessage, {
-//           parse_mode: "Markdown",
-//         });
+//         selectTariff.handle(bot, chatId, action);
 //         break;
 
 //       case "price":
@@ -206,6 +162,11 @@ module.exports.init = (bot) => {
 //         break;
 
 //       default:
+//         logger.error(`Неизвестное действие: ${action}`);
+//         bot.sendMessage(
+//           chatId,
+//           "Извините, произошла ошибка. Попробуйте снова."
+//         );
 //         break;
 //     }
 //   });
