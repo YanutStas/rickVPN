@@ -20,7 +20,7 @@ module.exports.handle = (bot, msg) => {
   const selectedTariff = selectTariff.getSelectedTariff() || "Не выбран";
 
   // Форматируем сообщение с Markdown и смайликами, добавляем жирный текст
-  const message = `📅 **${dateTime}**\n👤 **Пользователь:** **${userName}** (ID: ${userId})\n📦 **Оформил заказ на:** **${selectedTariff}**`;
+  const message = `📅 ${dateTime}\n👤 Пользователь: ${userName} (ID: ${userId})\n📦 Оформил заказ на:** **${selectedTariff}`;
 
   notifications.notifyAdmin(bot, adminChatId, message);
 };
