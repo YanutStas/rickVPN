@@ -1,28 +1,12 @@
 require("dotenv").config(); // Подключаем dotenv для использования переменных из .env
-const texts = require("../../shared/texts");
-const logger = require("../../app/logger");
 
-module.exports.handle = (bot, msg, orderDetails) => {
+module.exports.handle = (bot, msg) => {
   const adminChatId = process.env.ADMIN_CHAT_ID; // Используем ADMIN_CHAT_ID из .env
 
-  // Формируем уведомление для админа
-  const adminNotification = texts.adminNotificationMessage(
-    orderDetails.userName,
-    orderDetails.tariff || "Тариф не указан",
-    orderDetails.paymentInfo,
-    orderDetails.comment
-  );
-
-  // Отправляем сообщение админу с полной информацией о заказе
-  bot
-    .sendMessage(adminChatId, adminNotification, { parse_mode: "Markdown" })
-    .then(() => {
-      // Пересылаем чек админу после отправки уведомления
-      bot.forwardMessage(adminChatId, msg.chat.id, msg.message_id);
-    })
-    .catch((error) => {
-      logger.error(`Ошибка при отправке сообщения админу: ${error.message}`);
-    });
+  // Отправляем тестовое сообщение админу
+  bot.sendMessage(adminChatId, "Бугагашенька").catch((error) => {
+    console.log(`Ошибка при отправке сообщения админу: ${error.message}`);
+  });
 };
 
 // require("dotenv").config(); // Подключаем dotenv

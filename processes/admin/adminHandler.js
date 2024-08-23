@@ -3,46 +3,21 @@ const manageRequests = require("../../features/admin/manageRequests");
 const logger = require("../../app/logger");
 
 module.exports.init = (bot) => {
-  let userOrders = {};
-
-  // Обрабатываем callback_query для сохранения информации о тарифе
-  bot.on("callback_query", (callbackQuery) => {
-    const chatId = callbackQuery.message.chat.id;
-    const action = callbackQuery.data;
-
-    // Если выбран тариф
-    if (action.startsWith("tariff_")) {
-      userOrders[chatId] = {
-        ...userOrders[chatId],
-        tariff: action.replace("tariff_", ""),
-        date: new Date().toLocaleString(),
-        userName: callbackQuery.from.first_name || "друг"
-      };
-      logger.info(`Тариф ${userOrders[chatId].tariff} выбран пользователем ${userOrders[chatId].userName} (${chatId})`);
-    }
-  });
-
   // Обрабатываем сообщения с чеками
   bot.on("message", (msg) => {
     const chatId = msg.chat.id;
 
     // Проверяем, отправил ли пользователь чек (фото или документ)
     if (msg.photo || msg.document) {
-      userOrders[chatId] = {
-        ...userOrders[chatId],
-        paymentInfo: "Фото чека",
-        comment: msg.caption || "Комментарий отсутствует"
-      };
+      logger.info(
+        `Получен чек от пользователя: ${msg.from.first_name} (${chatId})`
+      );
 
-      // Передаём информацию для обработки и уведомления админа
-      manageRequests.handle(bot, msg, userOrders[chatId]);
-
-      // Очищаем данные заказа после отправки админу
-      delete userOrders[chatId];
+      // Просто передаём обработку в manageRequests
+      manageRequests.handle(bot, msg);
     }
   });
 };
-
 
 // const manageRequests = require("../../features/admin/manageRequests");
 
