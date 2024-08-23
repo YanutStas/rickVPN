@@ -77,8 +77,8 @@ module.exports.init = (bot) => {
       default:
         logger.error(`Неизвестное действие: ${action}`);
         bot.sendMessage(
-          chatId,
-          "Извините, произошла ошибка. Попробуйте снова."
+          // chatId,
+          // "Извините, произошла ошибка. Попробуйте снова."
         );
         break;
     }
