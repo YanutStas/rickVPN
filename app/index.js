@@ -8,23 +8,23 @@ const adminHandler = require("../processes/admin/adminHandler");
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-bot.on("polling_error", (error) => {
-  console.log("Ошибка опроса:", error);
-  logger.error(`Ошибка опроса: ${error.message}`);
-});
+// bot.on("polling_error", (error) => {
+//   console.log("Ошибка опроса:", error);
+//   logger.error(`Ошибка опроса: ${error.message}`);
+// });
 
 // Логируем нажатие на любую кнопку и обрабатываем нажатия
-bot.on("callback_query", (callbackQuery) => {
-  const action = callbackQuery.data;
-  const msg = callbackQuery.message;
-  const username = msg.chat.username;
-});
+// bot.on("callback_query", (callbackQuery) => {
+//   const action = callbackQuery.data;
+//   const msg = callbackQuery.message;
+//   const username = msg.chat.username;
+// });
 
 clientHandler.init(bot);
 adminHandler.init(bot);
 
 // Пример использования console.log для обычных сообщений
-console.log("Бот успешно запущен и ожидает команд.");
+// console.log("Бот успешно запущен и ожидает команд.");
 
 
 
