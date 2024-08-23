@@ -1,7 +1,7 @@
 require("dotenv").config();
 const notifications = require("../../widgets/admin/notifications");
 
-module.exports.handle = (bot, msg, tariff) => {
+module.exports.handle = (bot, msg, selectedTariff) => {
   const adminChatId = process.env.ADMIN_CHAT_ID;
 
   const userName = msg.from.first_name || "Неизвестный пользователь";
@@ -16,32 +16,11 @@ module.exports.handle = (bot, msg, tariff) => {
     year: "numeric",
   });
 
-  // Преобразуем тариф в читаемый формат
-  let tariffDescription = "";
-  switch (tariff) {
-    case "tariff_310_monthly":
-      tariffDescription = "на 1 месяц тариф 310 рублей";
-      break;
-    case "tariff_350_monthly":
-      tariffDescription = "на 1 месяц тариф 350 рублей";
-      break;
-    case "tariff_600_monthly":
-      tariffDescription = "на 1 месяц тариф 600 рублей";
-      break;
-    case "tariff_1550_semiannual":
-      tariffDescription = "на 6 месяцев тариф 1550 рублей";
-      break;
-    case "tariff_1750_semiannual":
-      tariffDescription = "на 6 месяцев тариф 1750 рублей";
-      break;
-    case "tariff_3000_semiannual":
-      tariffDescription = "на 6 месяцев тариф 3000 рублей";
-      break;
-    default:
-      tariffDescription = "тариф не выбран";
-  }
+  const tariffMessage = selectedTariff
+    ? `на ${selectedTariff.duration} ${selectedTariff.label} тариф ${selectedTariff.price} рублей`
+    : "без указания тарифа";
 
-  const message = `${dateTime} Пользователь ${userName} (${userId}) оформил заказ ${tariffDescription}`;
+  const message = `${dateTime} Пользователь ${userName} (${userId}) оформил заказ ${tariffMessage}`;
 
   notifications.notifyAdmin(bot, adminChatId, message);
 };
