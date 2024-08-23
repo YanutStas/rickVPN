@@ -39,9 +39,9 @@ bot.on("callback_query", (callbackQuery) => {
   const action = callbackQuery.data;
   const msg = callbackQuery.message;
   const username = msg.chat.username;
-  logger.info(
-    `Пользователь ${username} (${msg.chat.id}) нажал на кнопку: ${action}`
-  );
+  // logger.info(
+  //   `Пользователь ${username} (${msg.chat.id}) нажал на кнопку: ${action}`
+  // );
 });
 
 clientHandler.init(bot);
