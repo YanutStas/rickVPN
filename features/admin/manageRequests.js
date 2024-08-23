@@ -1,7 +1,7 @@
 require("dotenv").config();
 const notifications = require("../../widgets/admin/notifications");
 const selectTariff = require("../../features/client/selectTariff");
-const userStates = require("../../entities/userStates"); // Модуль для отслеживания состояния пользователя
+const userStates = require("../../entities/user"); // Модуль для отслеживания состояния пользователя
 
 module.exports.handle = (bot, msg) => {
   const adminChatId = process.env.ADMIN_CHAT_ID;
