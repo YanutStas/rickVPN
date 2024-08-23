@@ -1,7 +1,8 @@
 require("dotenv").config();
 const notifications = require("../../widgets/admin/notifications");
+const selectTariff = require("../../features/client/selectTariff");
 
-module.exports.handle = (bot, msg, selectedTariff) => {
+module.exports.handle = (bot, msg) => {
   const adminChatId = process.env.ADMIN_CHAT_ID;
 
   const userName = msg.from.first_name || "Неизвестный пользователь";
@@ -16,11 +17,9 @@ module.exports.handle = (bot, msg, selectedTariff) => {
     year: "numeric",
   });
 
-  const tariffMessage = selectedTariff
-    ? `на ${selectedTariff.duration} ${selectedTariff.label} тариф ${selectedTariff.price} рублей`
-    : "без указания тарифа";
+  const selectedTariff = selectTariff.getSelectedTariff() || "Не выбран";
 
-  const message = `${dateTime} Пользователь ${userName} (${userId}) оформил заказ ${tariffMessage}`;
+  const message = `${dateTime} Пользователь ${userName} (${userId}) оформил заказ на ${selectedTariff}`;
 
   notifications.notifyAdmin(bot, adminChatId, message);
 };

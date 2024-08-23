@@ -2,6 +2,8 @@ const texts = require("../../shared/texts");
 const payment = require("../../features/client/payment");
 const logger = require("../../app/logger");
 
+let selectedTariff = ""; // Глобальная переменная для хранения выбранного тарифа
+
 module.exports.handle = (bot, chatId, action) => {
   logger.info(`Пользователь выбрал действие: ${action}`);
 
@@ -47,15 +49,29 @@ module.exports.handle = (bot, chatId, action) => {
 
     // Обработка тарифов на 1 месяц
     case "tariff_310_monthly":
+      selectedTariff = "1 месяц тариф 310 рублей";
+      payment.handle(bot, chatId);
+      break;
     case "tariff_350_monthly":
+      selectedTariff = "1 месяц тариф 350 рублей";
+      payment.handle(bot, chatId);
+      break;
     case "tariff_600_monthly":
+      selectedTariff = "1 месяц тариф 600 рублей";
       payment.handle(bot, chatId);
       break;
 
     // Обработка тарифов на 6 месяцев
     case "tariff_1550_semiannual":
+      selectedTariff = "6 месяцев тариф 1550 рублей";
+      payment.handle(bot, chatId);
+      break;
     case "tariff_1750_semiannual":
+      selectedTariff = "6 месяцев тариф 1750 рублей";
+      payment.handle(bot, chatId);
+      break;
     case "tariff_3000_semiannual":
+      selectedTariff = "6 месяцев тариф 3000 рублей";
       payment.handle(bot, chatId);
       break;
 
@@ -68,6 +84,8 @@ module.exports.handle = (bot, chatId, action) => {
       break;
   }
 };
+
+module.exports.getSelectedTariff = () => selectedTariff;
 
 // const texts = require("../../shared/texts");
 // const payment = require("../../features/client/payment");
@@ -120,18 +138,14 @@ module.exports.handle = (bot, chatId, action) => {
 //     case "tariff_310_monthly":
 //     case "tariff_350_monthly":
 //     case "tariff_600_monthly":
-//       bot.sendMessage(chatId, texts.paymentMessage, {
-//         parse_mode: "Markdown",
-//       });
+//       payment.handle(bot, chatId);
 //       break;
 
 //     // Обработка тарифов на 6 месяцев
 //     case "tariff_1550_semiannual":
 //     case "tariff_1750_semiannual":
 //     case "tariff_3000_semiannual":
-//       bot.sendMessage(chatId, texts.paymentMessage, {
-//         parse_mode: "Markdown",
-//       });
+//       payment.handle(bot, chatId);
 //       break;
 
 //     default:
