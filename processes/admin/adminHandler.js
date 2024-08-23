@@ -21,10 +21,14 @@ module.exports.init = (bot) => {
     // Проверяем, если сообщение от администратора для ввода ключа
     if (msg.text && msg.text.startsWith("key_")) {
       const [_, userId, uniqueKey] = msg.text.split("_");
+      // const message = `Ваш индивидуальный код для подключения: ${uniqueKey}\n\n${texts.connectMessage}`;
       const message = `Ваш индивидуальный код для подключения: ${uniqueKey}\n\n${texts.connectMessage}`;
       if (userId && uniqueKey) {
         bot
-          .sendMessage(userId, message, { parse_mode: "Markdown" })
+          .sendMessage(userId, message, {
+            parse_mode: "Markdown",
+            disable_web_page_preview: true,
+          })
           .then(() => {
             bot.sendMessage(
               chatId,
@@ -87,8 +91,6 @@ module.exports.init = (bot) => {
           logger.error(`Ошибка при отклонении оплаты: ${error.message}`);
           bot.sendMessage(adminChatId, "Ошибка при отклонении оплаты.");
         });
-    } else {
-      logger.error(`Неизвестное действие: ${action}`);
     }
   });
 };
