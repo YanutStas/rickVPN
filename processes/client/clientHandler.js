@@ -5,7 +5,7 @@ const logger = require("../../app/logger");
 
 module.exports.init = (bot) => {
   bot.onText(/\/start/, (msg) => {
-    startPage.handle(bot, msg); // Изменение здесь
+    startPage.handle(bot, msg); 
   });
 
   bot.on("callback_query", (callbackQuery) => {
